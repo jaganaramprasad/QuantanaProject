@@ -136,7 +136,7 @@ return (
 <table className="table table-striped">
   <thead>
     <tr>
-      <th>Sno</th>
+      <th>#</th>
       <th>Name</th>
       <th>Role</th>
       <th>Gender</th>
@@ -151,28 +151,35 @@ return (
           <td>{item.name}</td>
           <td>{item.role}</td>
           <td>{item.gender}</td>
-          <tr><a onClick={async()=>{await axios.delete(`http://localhost:5000/deleteEmployee/${item._id}`)}}>Delete</a> &nbsp; 
+          <tr><a onClick={async()=>{await axios.delete(`http://localhost:5000/deleteEmployee/${item._id}`)}}><button type="button" class="btn btn-danger">Delete</button></a> &nbsp; 
           
-          {/* <a onClick={()=>editTask(item._id) } >Edit</a> */}
-          <button className="btn btn-success" onClick={handleOpenModal}>Edit</button>
+          {/* <a onClick={()=>handleEdit(index)} ><button>Edit</button></a> */}
+          {/* <button className="btn btn-success" onClick={()=>handleEdit(index)}>Edit</button> */}
 
-    <Modal isOpen={isModalOpen} onRequestClose={CloseModal}>
-    <h2>Create Employee</h2>
+        <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={()=>handleEdit(index)}>Edit</a>
+        </tr>
+        </tr>
+        )})}
+  </tbody>
+</table>
+</div>
+<Modal isOpen={isModalOpen} onRequestClose={CloseModal}>
+    <h2>Edit Employee</h2>
     <form onSubmit={handleSubmit}>
       <div className="form-group">
-        <input type="text" className="form-control" placeholder="Name" name="name" onChange={handleChange}/>
+        <input type="text" className="form-control" placeholder="Name" name="name" onChange={handleChange}   />
         <br/>
       </div>
       <div className="form-group">
-        <input type="text" className="form-control" placeholder="Role" name="role" onChange={handleChangeROle}/>
+        <input type="text" className="form-control" placeholder="Role" name="role" onChange={handleChangeROle} />
         <br/>
       </div>
       <div className="form-group">
-        <input type="text" className="form-control" placeholder="Gender" name="gender" onChange={handleChangeGender}/>
+        <input type="text" className="form-control" placeholder="Gender" name="gender" onChange={handleChangeGender} />
         <br/>
       </div>
       
-      <button type="submit" className="btn btn-primary" onClick={async ()=>{console.log("shashi"); await axios.post('http://localhost:5000/addNewEmployee/',{
+      <button type="submit" className="btn btn-primary" onClick={async ()=>{console.log("shashi"); await axios.post('http://localhost:5000/editEmployee/:id',{
         name:name,
         role:role,
         gender
@@ -181,13 +188,8 @@ return (
 </form>
 </Modal>
 
-          {/* <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onClick={editTask(item._id)}>Edit</a> */}
-          </tr>
-        </tr>
-        )})}
-  </tbody>
-</table>
-</div>
+
+
 </>
 );
 };
